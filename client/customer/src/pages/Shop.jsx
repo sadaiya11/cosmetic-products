@@ -4,6 +4,8 @@ import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS } from '../data/mockProducts';
 import { Filter, Search } from 'lucide-react';
 
+import { API_BASE_URL } from '../config/api';
+
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category') || 'all';
@@ -17,7 +19,7 @@ export default function Shop() {
   }, [categoryParam]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${API_BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) setProducts(data);

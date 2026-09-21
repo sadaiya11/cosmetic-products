@@ -4,11 +4,13 @@ import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS } from '../data/mockProducts';
 import { Sparkles, ShieldCheck, Leaf, RefreshCw } from 'lucide-react';
 
+import { API_BASE_URL } from '../config/api';
+
 export default function Home() {
   const [products, setProducts] = useState(MOCK_PRODUCTS);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products?featured=true')
+    fetch(`${API_BASE_URL}/products?featured=true`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) setProducts(data);

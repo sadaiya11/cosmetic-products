@@ -5,6 +5,8 @@ import { addToCart } from '../store/slices/cartSlice';
 import { MOCK_PRODUCTS } from '../data/mockProducts';
 import { Star, Shield, RefreshCw, ShoppingBag, Plus, Minus, ArrowLeft } from 'lucide-react';
 
+import { API_BASE_URL } from '../config/api';
+
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`${API_BASE_URL}/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data && data.id) setProduct(data);

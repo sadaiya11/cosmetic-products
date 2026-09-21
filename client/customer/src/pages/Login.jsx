@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../store/slices/authSlice';
 import { Sparkles } from 'lucide-react';
 
+import { API_BASE_URL } from '../config/api';
+
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:5000/api/auth/login', {
+    fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
