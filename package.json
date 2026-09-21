@@ -1,0 +1,20 @@
+{
+  "name": "cosmetic-products-monorepo",
+  "version": "1.0.0",
+  "description": "Full-Stack Cosmetic E-Commerce Platform (Customer & Admin Apps + Express Node.js & Prisma MongoDB API)",
+  "private": true,
+  "workspaces": [
+    "client/customer",
+    "client/admin",
+    "server"
+  ],
+  "scripts": {
+    "dev:customer": "npm run dev --prefix client/customer",
+    "dev:admin": "npm run dev --prefix client/admin",
+    "dev:server": "npm run dev --prefix server",
+    "build:customer": "npm run build --prefix client/customer",
+    "build:admin": "npm run build --prefix client/admin",
+    "build:server": "npm run build --prefix server",
+    "prisma:generate": "npm run prisma:generate --prefix server"
+  }
+}
