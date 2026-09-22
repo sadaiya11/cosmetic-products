@@ -385,7 +385,7 @@ export default function ProductModal({ isOpen, onClose, editingProduct = null })
                 <input
                   type="file"
                   multiple
-                  accept="image/*,.avif,.webp"
+                  accept="image/*,.jpeg,.jpg,.png,.webp,.avif"
                   onChange={handleFileUpload}
                   className="hidden"
                 />
