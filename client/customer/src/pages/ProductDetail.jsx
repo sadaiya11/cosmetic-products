@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/slices/cartSlice';
 import { MOCK_PRODUCTS, getPriceDetails, getProductVariants } from '../data/mockProducts';
+import ImageMagnifier from '../components/ImageMagnifier';
 import {
   Star,
   Shield,
@@ -156,16 +157,12 @@ export default function ProductDetail() {
             ))}
           </div>
 
-          {/* Main Hero Product Image Display */}
-          <div className="relative flex-1 aspect-square bg-stone-100 rounded-3xl overflow-hidden shadow-lg border border-stone-200 group w-full">
-            <img
-              src={mainImage}
-              alt={product.title}
-              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-            />
+          {/* Main Hero Product Image Display with Magnifier */}
+          <div className="relative flex-1 aspect-square w-full">
+            <ImageMagnifier src={mainImage} alt={product.title} zoomLevel={2.5} />
 
             {/* Top Right Action Icons (Wishlist & Share) */}
-            <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+            <div className="absolute top-4 right-4 flex flex-col space-y-2 z-30 pointer-events-auto">
               <button className="p-2.5 rounded-full bg-white/90 backdrop-blur-md shadow-md hover:bg-pink-600 hover:text-white text-stone-700 transition-colors">
                 <Heart className="w-4 h-4" />
               </button>
@@ -175,7 +172,7 @@ export default function ProductDetail() {
             </div>
 
             {/* Bestseller Badge */}
-            <div className="absolute top-4 left-4 z-10">
+            <div className="absolute top-4 left-4 z-30 pointer-events-none">
               <span className="bg-pink-600 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
                 #1 BESTSELLER
               </span>
