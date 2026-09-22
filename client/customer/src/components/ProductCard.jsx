@@ -1,16 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Star, ShoppingBag } from 'lucide-react';
 import { addToCart } from '../store/slices/cartSlice';
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     dispatch(addToCart(product));
   };
+
+  const categoryName = product.category?.name || 'Skincare';
+  const categorySlug = product.category?.slug || 'skincare';
 
   const defaultImage =
     product.images && product.images.length > 0
@@ -27,11 +31,19 @@ export default function ProductCard({ product }) {
             alt={product.title}
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
           />
-          {product.isFeatured && (
-            <span className="absolute top-3 left-3 bg-amber-900/90 text-amber-100 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-md">
-              Featured
-            </span>
-          )}
+
+          {/* Category Badge - Clickable */}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/shop?category=${categorySlug}`);
+            }}
+            className="absolute top-3 left-3 bg-stone-900/80 hover:bg-amber-900 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-md transition-colors"
+          >
+            {categoryName}
+          </button>
+
+          {/* Quick Add to Cart Button */}
           <button
             onClick={handleAddToCart}
             className="absolute bottom-3 right-3 bg-white/90 hover:bg-amber-900 hover:text-white text-stone-800 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
