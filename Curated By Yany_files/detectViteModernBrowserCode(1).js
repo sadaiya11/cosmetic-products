@@ -1,0 +1,1 @@
+if(!window.__vite_is_modern_browser__sale){try{import.meta.url;import("_").catch(()=>1);}catch(e){}window.__vite_is_modern_browser__sale=true;}

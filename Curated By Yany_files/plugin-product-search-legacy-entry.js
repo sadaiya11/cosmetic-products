@@ -1,0 +1,1 @@
+var url=window.__resource_url__("https://front.myshopline.com/cdn/v1/plugin/app-code-block/product/plugin-product-search/2026080503321414/plugin-product-search-index-legacy.js");System.import(url);

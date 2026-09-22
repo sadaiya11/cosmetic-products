@@ -1,38 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
+import heroIndian1 from '../assets/hero_indian_1.jpg';
+import heroIndian2 from '../assets/hero_indian_2.jpg';
+import heroIndian3 from '../assets/hero_indian_3.jpg';
+
 const SLIDES = [
   {
     id: 1,
-    tag: 'Organic Botanical Elixirs',
-    title: 'Illuminate Your Natural',
-    highlightTitle: 'Radiance.',
-    image:
-      'https://images.unsplash.com/photo-1608248597263-0057e57b4524?auto=format&fit=crop&w=1920&q=80',
+    tag: 'Curated By Aurora',
+    title: 'Your Curated Beauty',
+    highlightTitle: 'Destination.',
+    image: heroIndian1,
   },
   {
     id: 2,
-    tag: 'Cellular Hydration Nectar',
-    title: 'Deep Moisture & Skin',
-    highlightTitle: 'Vitality.',
-    image:
-      'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1920&q=80',
+    tag: 'The Perfect Finish',
+    title: 'Soft Glam. Bold',
+    highlightTitle: 'Presence.',
+    image: heroIndian2,
   },
   {
     id: 3,
-    tag: 'Artisanal Perfumery',
-    title: 'Warm Amber & Golden',
-    highlightTitle: 'Sandalwood.',
-    image:
-      'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1920&q=80',
-  },
-  {
-    id: 4,
-    tag: 'Velvet Cleansers',
-    title: 'Nourishing Milk & Oil',
-    highlightTitle: 'Rituals.',
-    image:
-      'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1920&q=80',
+    tag: 'Meet Your Match',
+    title: 'Color That Melts Into',
+    highlightTitle: 'Skin.',
+    image: heroIndian3,
   },
 ];
 
@@ -59,11 +52,11 @@ export default function HeroBanner() {
 
   return (
     <div
-      className="relative bg-stone-950 text-white overflow-hidden h-[480px] sm:h-[560px] flex items-center select-none"
+      className="relative bg-stone-950 text-white overflow-hidden h-[480px] sm:h-[580px] flex items-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Slides with Crossfade */}
+      {/* Background Slides with Smooth Crossfade */}
       {SLIDES.map((slide, index) => (
         <div
           key={slide.id}
@@ -76,7 +69,7 @@ export default function HeroBanner() {
             alt={slide.title}
             className="w-full h-full object-cover object-center transform scale-100 transition-transform duration-7000"
           />
-          {/* Light Ambient Overlay for Maximum Image Visibility */}
+          {/* Subtle Ambient Overlay for Maximum Photo Warmth & Visibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/50 via-transparent to-stone-950/20" />
         </div>
       ))}
