@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HeroBanner from '../components/HeroBanner';
 import OffersBanner from '../components/OffersBanner';
+import FlashSaleOffers from '../components/FlashSaleOffers';
+import CampaignVideoSection from '../components/CampaignVideoSection';
 import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS } from '../data/mockProducts';
 import { Sparkles, ShieldCheck, Leaf, RefreshCw, ArrowRight, Grid } from 'lucide-react';
@@ -61,6 +63,8 @@ export default function Home() {
     <div className="space-y-16 pb-20">
       <HeroBanner />
       <OffersBanner />
+      <FlashSaleOffers />
+      <CampaignVideoSection />
 
       {/* Trust Badges */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
