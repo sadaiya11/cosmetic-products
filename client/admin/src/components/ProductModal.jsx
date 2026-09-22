@@ -67,7 +67,7 @@ export default function ProductModal({ isOpen, onClose }) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block uppercase font-bold text-slate-400 mb-1">
-                Price ($)
+                Price (₹)
               </label>
               <input
                 type="number"

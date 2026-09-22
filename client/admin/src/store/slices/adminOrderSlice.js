@@ -4,7 +4,7 @@ const initialOrders = [
   {
     id: 'ord-1001',
     user: { name: 'Sophia Laurent', email: 'sophia@example.com' },
-    totalAmount: 150.0,
+    totalAmount: 3349.0,
     status: 'PROCESSING',
     isPaid: true,
     createdAt: '2026-09-20T10:30:00Z',
@@ -13,7 +13,7 @@ const initialOrders = [
   {
     id: 'ord-1002',
     user: { name: 'Elena Vance', email: 'elena@example.com' },
-    totalAmount: 68.0,
+    totalAmount: 1499.0,
     status: 'SHIPPED',
     isPaid: true,
     createdAt: '2026-09-19T14:15:00Z',
@@ -22,7 +22,7 @@ const initialOrders = [
   {
     id: 'ord-1003',
     user: { name: 'Marcus Chen', email: 'marcus@example.com' },
-    totalAmount: 217.0,
+    totalAmount: 4799.0,
     status: 'DELIVERED',
     isPaid: true,
     createdAt: '2026-09-18T09:00:00Z',

@@ -137,7 +137,7 @@ export default function Checkout() {
               type="submit"
               className="w-full bg-amber-900 hover:bg-amber-800 text-white font-bold py-4 rounded-xl uppercase tracking-wider text-xs transition-colors mt-6 shadow-md"
             >
-              Place Order (${totalAmount.toFixed(2)})
+              Place Order (₹{totalAmount.toLocaleString('en-IN')})
             </button>
           </form>
         </div>
@@ -155,7 +155,7 @@ export default function Checkout() {
                   {item.title} (x{item.quantity})
                 </span>
                 <span className="font-bold text-stone-900">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  ₹{(item.price * item.quantity).toLocaleString('en-IN')}
                 </span>
               </div>
             ))}
@@ -168,7 +168,7 @@ export default function Checkout() {
             </div>
             <div className="flex justify-between text-stone-900 font-bold text-base pt-2 border-t border-stone-200">
               <span>Total</span>
-              <span>${totalAmount.toFixed(2)}</span>
+              <span>₹{totalAmount.toLocaleString('en-IN')}</span>
             </div>
           </div>
 

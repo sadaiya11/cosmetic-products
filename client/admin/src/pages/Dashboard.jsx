@@ -11,7 +11,7 @@ export default function Dashboard() {
   const stats = [
     {
       title: 'Total Revenue',
-      value: `$${totalRevenue.toFixed(2)}`,
+      value: `₹${totalRevenue.toLocaleString('en-IN')}`,
       icon: DollarSign,
       change: '+14.2%',
       color: 'text-emerald-400',
@@ -107,7 +107,7 @@ export default function Dashboard() {
                     <div className="text-[10px] text-slate-500">{ord.user.email}</div>
                   </td>
                   <td className="p-3.5 font-bold text-white">
-                    ${ord.totalAmount.toFixed(2)}
+                    ₹{ord.totalAmount.toLocaleString('en-IN')}
                   </td>
                   <td className="p-3.5">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">

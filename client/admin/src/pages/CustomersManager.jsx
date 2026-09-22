@@ -3,9 +3,9 @@ import { Users, Mail, Calendar } from 'lucide-react';
 
 export default function CustomersManager() {
   const customers = [
-    { id: 'c-1', name: 'Sophia Laurent', email: 'sophia@example.com', ordersCount: 4, spent: '$340.00', joined: '2026-08-12' },
-    { id: 'c-2', name: 'Elena Vance', email: 'elena@example.com', ordersCount: 2, spent: '$150.00', joined: '2026-08-25' },
-    { id: 'c-3', name: 'Marcus Chen', email: 'marcus@example.com', ordersCount: 5, spent: '$520.00', joined: '2026-09-01' },
+    { id: 'c-1', name: 'Sophia Laurent', email: 'sophia@example.com', ordersCount: 4, spent: '₹14,200', joined: '2026-08-12' },
+    { id: 'c-2', name: 'Elena Vance', email: 'elena@example.com', ordersCount: 2, spent: '₹6,500', joined: '2026-08-25' },
+    { id: 'c-3', name: 'Marcus Chen', email: 'marcus@example.com', ordersCount: 5, spent: '₹22,400', joined: '2026-09-01' },
   ];
 
   return (

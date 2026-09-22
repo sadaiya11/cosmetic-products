@@ -88,7 +88,7 @@ export default function CartDrawer() {
                         </button>
                       </div>
                       <p className="text-amber-800 font-bold text-sm mt-0.5">
-                        ${item.price.toFixed(2)}
+                        ₹{item.price.toLocaleString('en-IN')}
                       </p>
                     </div>
 
@@ -135,7 +135,7 @@ export default function CartDrawer() {
               <div className="flex justify-between items-center text-sm">
                 <span className="text-stone-600">Subtotal</span>
                 <span className="text-xl font-bold text-stone-900">
-                  ${totalAmount.toFixed(2)}
+                  ₹{totalAmount.toLocaleString('en-IN')}
                 </span>
               </div>
               <p className="text-stone-400 text-xs text-center">

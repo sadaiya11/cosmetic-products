@@ -4,7 +4,7 @@ const initialProducts = [
   {
     id: 'prod-1',
     title: 'Rosehip Botanical Youth Elixir',
-    price: 68.0,
+    price: 1499.0,
     stock: 25,
     category: { name: 'Skincare' },
     isFeatured: true,
@@ -12,7 +12,7 @@ const initialProducts = [
   {
     id: 'prod-2',
     title: 'Cellular Hydration Nectar Serum',
-    price: 82.0,
+    price: 1850.0,
     stock: 18,
     category: { name: 'Skincare' },
     isFeatured: true,
@@ -20,7 +20,7 @@ const initialProducts = [
   {
     id: 'prod-3',
     title: 'Velvet Camellia Cream Cleanser',
-    price: 45.0,
+    price: 899.0,
     stock: 30,
     category: { name: 'Cleanser' },
     isFeatured: false,

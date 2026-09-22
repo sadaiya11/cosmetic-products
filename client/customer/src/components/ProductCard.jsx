@@ -85,7 +85,7 @@ export default function ProductCard({ product }) {
             {product.volume || '50 ml'}
           </span>
           <span className="text-stone-900 font-bold text-lg">
-            ${parseFloat(product.price).toFixed(2)}
+            ₹{parseFloat(product.price).toLocaleString('en-IN')}
           </span>
         </div>
 

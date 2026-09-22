@@ -53,7 +53,7 @@ export default function ProductsManager() {
                     <span>{p.title}</span>
                   </td>
                   <td className="p-4 text-slate-400">{p.category?.name || 'Skincare'}</td>
-                  <td className="p-4 font-bold text-amber-400">${p.price.toFixed(2)}</td>
+                  <td className="p-4 font-bold text-amber-400">₹{p.price.toLocaleString('en-IN')}</td>
                   <td className="p-4">
                     <span
                       className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${

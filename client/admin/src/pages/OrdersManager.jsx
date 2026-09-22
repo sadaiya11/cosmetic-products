@@ -40,7 +40,7 @@ export default function OrdersManager() {
                     <div className="font-medium text-white">{o.user.name}</div>
                     <div className="text-[10px] text-slate-500">{o.user.email}</div>
                   </td>
-                  <td className="p-4 font-bold text-white">${o.totalAmount.toFixed(2)}</td>
+                  <td className="p-4 font-bold text-white">₹{o.totalAmount.toLocaleString('en-IN')}</td>
                   <td className="p-4">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
                       {o.status}

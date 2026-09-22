@@ -82,7 +82,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="text-2xl font-bold text-stone-900">
-            ${parseFloat(product.price).toFixed(2)}
+            ₹{parseFloat(product.price).toLocaleString('en-IN')}
           </div>
 
           <p className="text-stone-600 text-sm leading-relaxed">

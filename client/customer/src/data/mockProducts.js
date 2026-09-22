@@ -4,7 +4,7 @@ export const MOCK_PRODUCTS = [
     title: 'Rosehip Botanical Youth Elixir',
     slug: 'rosehip-youth-elixir',
     description: 'A luxurious night oil infused with wild cold-pressed rosehip, bakuchiol, and organic squalane for intense skin renewal.',
-    price: 68.0,
+    price: 1499.0,
     stock: 25,
     images: [
       'https://images.unsplash.com/photo-1608248597263-0057e57b4524?auto=format&fit=crop&w=800&q=80',
@@ -21,7 +21,7 @@ export const MOCK_PRODUCTS = [
     title: 'Cellular Hydration Nectar Serum',
     slug: 'cellular-hydration-nectar',
     description: 'Triple-weight hyaluronic acid serum paired with snow mushroom extract to deeply saturate thirsty skin cells.',
-    price: 82.0,
+    price: 1850.0,
     stock: 18,
     images: [
       'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
@@ -38,7 +38,7 @@ export const MOCK_PRODUCTS = [
     title: 'Velvet Camellia Cream Cleanser',
     slug: 'velvet-camellia-cleanser',
     description: 'Nourishing oil-to-milk balm cleanser that removes waterproof makeup without stripping natural skin moisture.',
-    price: 45.0,
+    price: 899.0,
     stock: 30,
     images: [
       'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
@@ -55,7 +55,7 @@ export const MOCK_PRODUCTS = [
     title: 'Amber & Sandalwood Artisanal Perfume',
     slug: 'amber-sandalwood-perfume',
     description: 'An intoxicating eau de parfum blending warm Mysore sandalwood, golden amber resin, and wild jasmine.',
-    price: 135.0,
+    price: 2450.0,
     stock: 10,
     images: [
       'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80',
