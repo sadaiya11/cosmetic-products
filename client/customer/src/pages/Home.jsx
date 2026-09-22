@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeroBanner from '../components/HeroBanner';
 import OffersBanner from '../components/OffersBanner';
 import FlashSaleOffers from '../components/FlashSaleOffers';
+import ScienceBackedSection from '../components/ScienceBackedSection';
 import CampaignVideoSection from '../components/CampaignVideoSection';
 import ProductCard from '../components/ProductCard';
 import { MOCK_PRODUCTS } from '../data/mockProducts';
