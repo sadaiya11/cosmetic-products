@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/slices/cartSlice';
-import { MOCK_PRODUCTS } from '../data/mockProducts';
+import { MOCK_PRODUCTS, getPriceDetails } from '../data/mockProducts';
 import { Star, Shield, RefreshCw, ShoppingBag, Plus, Minus, ArrowLeft } from 'lucide-react';
 
 import { API_BASE_URL } from '../config/api';
@@ -32,6 +32,8 @@ export default function ProductDetail() {
   }, [id]);
 
   if (!product) return null;
+
+  const { price, mrp, discountPercent } = getPriceDetails(product);
 
   const handleAddToCart = () => {
     dispatch(addToCart({ ...product, quantity }));
@@ -81,8 +83,20 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <div className="text-2xl font-bold text-stone-900">
-            ₹{parseFloat(product.price).toLocaleString('en-IN')}
+          <div className="flex items-baseline space-x-3 flex-wrap">
+            <span className="text-3xl font-extrabold text-stone-900">
+              ₹{price.toLocaleString('en-IN')}
+            </span>
+            {mrp > price && (
+              <span className="text-xl text-stone-400 line-through font-normal">
+                ₹{mrp.toLocaleString('en-IN')}
+              </span>
+            )}
+            {discountPercent > 0 && (
+              <span className="text-lg font-bold text-teal-600">
+                {discountPercent}% OFF
+              </span>
+            )}
           </div>
 
           <p className="text-stone-600 text-sm leading-relaxed">

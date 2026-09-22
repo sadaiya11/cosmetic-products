@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Star, ShoppingBag, Check } from 'lucide-react';
 import { addToCart } from '../store/slices/cartSlice';
+import { getPriceDetails } from '../data/mockProducts';
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
+
+  const { price, mrp, discountPercent } = getPriceDetails(product);
 
   const handleCardClick = () => {
     navigate(`/product/${product.id}`);
@@ -79,14 +82,26 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Bottom Section: Price & Visible Add to Cart Button */}
-      <div className="px-5 pb-5 pt-3 border-t border-stone-100 flex items-center justify-between gap-3">
-        <div>
+      <div className="px-5 pb-5 pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+        <div className="space-y-0.5">
           <span className="text-[10px] uppercase font-semibold text-stone-400 block">
             {product.volume || '50 ml'}
           </span>
-          <span className="text-stone-900 font-bold text-lg">
-            ₹{parseFloat(product.price).toLocaleString('en-IN')}
-          </span>
+          <div className="flex items-baseline space-x-1.5 flex-wrap">
+            <span className="text-stone-900 font-extrabold text-lg">
+              ₹{price.toLocaleString('en-IN')}
+            </span>
+            {mrp > price && (
+              <span className="text-stone-400 line-through text-xs font-normal">
+                ₹{mrp.toLocaleString('en-IN')}
+              </span>
+            )}
+            {discountPercent > 0 && (
+              <span className="text-teal-600 font-bold text-xs sm:text-sm">
+                {discountPercent}%
+              </span>
+            )}
+          </div>
         </div>
 
         <button
