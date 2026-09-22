@@ -110,30 +110,15 @@ export default function ProductModal({ isOpen, onClose, editingProduct = null })
       try {
         const fileExt = file.name.split('.').pop();
         const rawFileName = `img_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const folderFilePath = `products/${rawFileName}`;
 
-        // First attempt: upload to the 'products' subfolder
-        let targetPath = folderFilePath;
+        // Upload directly to product-images bucket root
+        let targetPath = rawFileName;
         let { data, error } = await supabase.storage
           .from('product-images')
-          .upload(folderFilePath, file, {
+          .upload(rawFileName, file, {
             cacheControl: '3600',
             upsert: true,
           });
-
-        // Fallback: upload directly to root if folder path fails
-        if (error) {
-          console.warn('Subfolder upload failed, trying root upload:', error.message);
-          targetPath = rawFileName;
-          const rootResult = await supabase.storage
-            .from('product-images')
-            .upload(rawFileName, file, {
-              cacheControl: '3600',
-              upsert: true,
-            });
-          data = rootResult.data;
-          error = rootResult.error;
-        }
 
         if (error) {
           console.error('Supabase Upload Error:', error);
