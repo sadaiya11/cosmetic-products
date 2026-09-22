@@ -1,4 +1,84 @@
+import cetaphil59_1 from '../assets/cetaphil/59ml-1.avif';
+import cetaphil59_2 from '../assets/cetaphil/59ml-2.avif';
+import cetaphil59_3 from '../assets/cetaphil/59ml-3.avif';
+import cetaphil59_4 from '../assets/cetaphil/59ml-4.avif';
+
 export const MOCK_PRODUCTS = [
+  {
+    id: 'prod-cetaphil',
+    title: 'Cetaphil Gentle Skin Cleanser For Normal, Dry Skin Hydrates And Softens',
+    slug: 'cetaphil-gentle-skin-cleanser',
+    description: 'Hypoallergenic, dermatologist-recommended facial cleanser formulated with Niacinamide, Vitamin B5, and Hydrating Glycerin to soothe and protect sensitive, normal to dry skin.',
+    price: 219.0,
+    mrp: 299.0,
+    discountPercent: 27,
+    stock: 50,
+    images: [cetaphil59_1, cetaphil59_2, cetaphil59_3, cetaphil59_4],
+    rating: 4.5,
+    numReviews: 433484,
+    volume: '59ml',
+    isFeatured: true,
+    category: { name: 'Cleanser', slug: 'cleanser' },
+    ingredients: 'Water, Cetyl Alcohol, Propylene Glycol, Sodium Lauryl Sulfate, Stearyl Alcohol, Niacinamide (Vitamin B3), Panthenol (Vitamin B5), Glycerin.',
+    variants: [
+      {
+        id: 'v-cet-59ml',
+        name: '59ml',
+        price: 219,
+        mrp: 299,
+        discountPercent: 27,
+        images: [cetaphil59_1, cetaphil59_2, cetaphil59_3, cetaphil59_4],
+      },
+      {
+        id: 'v-cet-118ml',
+        name: '118ml',
+        price: 415,
+        mrp: 550,
+        discountPercent: 25,
+        images: [
+          'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
+          cetaphil59_2,
+          cetaphil59_3,
+        ],
+      },
+      {
+        id: 'v-cet-236ml',
+        name: '236ml',
+        price: 850,
+        mrp: 1099,
+        discountPercent: 23,
+        images: [
+          'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+          cetaphil59_1,
+          cetaphil59_4,
+        ],
+      },
+      {
+        id: 'v-cet-473ml',
+        name: '473ml',
+        price: 1249,
+        mrp: 1599,
+        discountPercent: 22,
+        images: [
+          'https://images.unsplash.com/photo-1608248597263-0057e57b4524?auto=format&fit=crop&w=800&q=80',
+          cetaphil59_3,
+          cetaphil59_2,
+        ],
+      },
+      {
+        id: 'v-cet-1ltr',
+        name: '1Ltr',
+        price: 2199,
+        mrp: 2799,
+        discountPercent: 21,
+        images: [
+          'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80',
+          cetaphil59_4,
+          cetaphil59_1,
+        ],
+      },
+    ],
+  },
   {
     id: 'prod-1',
     title: 'Rosehip Botanical Youth Elixir',
