@@ -64,6 +64,7 @@ export default function Home() {
       <HeroBanner />
       <OffersBanner />
       <FlashSaleOffers />
+      <ScienceBackedSection />
       <CampaignVideoSection />
 
       {/* Trust Badges */}
