@@ -76,28 +76,27 @@ export default function HeroBanner() {
             alt={slide.title}
             className="w-full h-full object-cover object-center transform scale-100 transition-transform duration-7000"
           />
-          {/* Subtle Light Gradient Overlay so Background Image is Bright & Highly Visible */}
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-950/70 via-stone-950/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-stone-950/20" />
+          {/* Light Ambient Overlay for Maximum Image Visibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/50 via-transparent to-stone-950/20" />
         </div>
       ))}
 
-      {/* Hero Content Overlay (Only Badge Tag and Title) */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl bg-stone-950/30 backdrop-blur-xs p-6 rounded-3xl border border-white/10 shadow-2xl">
+      {/* Hero Content Overlay - Positioned Compactly at Bottom Right */}
+      <div className="absolute bottom-16 right-6 sm:right-16 z-20 max-w-xs sm:max-w-sm w-full">
+        <div className="bg-stone-950/70 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/15 shadow-2xl space-y-2">
           {/* Slide Tag Badge */}
-          <div className="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-500/40 rounded-full px-4 py-1.5 mb-4 text-amber-300 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-1.5 bg-amber-500/20 border border-amber-500/40 rounded-full px-3 py-1 text-amber-300 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md">
+            <Sparkles className="w-3 h-3" />
             <span>{SLIDES[currentSlide].tag}</span>
           </div>
 
-          {/* Title Text */}
-          <h1 className="font-serif text-4xl sm:text-6xl font-normal leading-tight tracking-wide drop-shadow-md">
+          {/* Compact Title Text */}
+          <h2 className="font-serif text-lg sm:text-2xl font-normal leading-snug tracking-wide text-white drop-shadow-md">
             {SLIDES[currentSlide].title}{' '}
-            <span className="italic font-light text-amber-300 block sm:inline">
+            <span className="italic font-light text-amber-300 block">
               {SLIDES[currentSlide].highlightTitle}
             </span>
-          </h1>
+          </h2>
         </div>
       </div>
 
