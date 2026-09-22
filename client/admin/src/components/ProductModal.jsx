@@ -109,23 +109,32 @@ export default function ProductModal({ isOpen, onClose, editingProduct = null })
     for (let file of files) {
       try {
         const fileExt = file.name.split('.').pop();
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const filePath = `products/${fileName}`;
+        const fileName = `img_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
 
-        // Attempt upload to Supabase Storage bucket 'product-images'
-        const { data, error } = await supabase.storage.from('product-images').upload(filePath, file);
+        // Upload directly to bucket root with upsert: true
+        const { data, error } = await supabase.storage
+          .from('product-images')
+          .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: true,
+          });
 
         if (error) {
-          // Fallback to local ObjectURL if Supabase bucket isn't initialized yet
+          console.error('Supabase Upload Error:', error);
+          alert(`Supabase Storage Error: ${error.message}\n\nPlease click 'Edit bucket' in Supabase and ensure 'Public bucket' is switched ON.`);
           const objectUrl = URL.createObjectURL(file);
           newImageUrls.push(objectUrl);
         } else {
           const { data: publicUrlData } = supabase.storage
             .from('product-images')
-            .getPublicUrl(filePath);
-          newImageUrls.push(publicUrlData.publicUrl);
+            .getPublicUrl(fileName);
+          
+          if (publicUrlData && publicUrlData.publicUrl) {
+            newImageUrls.push(publicUrlData.publicUrl);
+          }
         }
       } catch (err) {
+        console.error('Upload catch error:', err);
         const objectUrl = URL.createObjectURL(file);
         newImageUrls.push(objectUrl);
       }
