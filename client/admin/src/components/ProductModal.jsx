@@ -109,26 +109,42 @@ export default function ProductModal({ isOpen, onClose, editingProduct = null })
     for (let file of files) {
       try {
         const fileExt = file.name.split('.').pop();
-        const fileName = `img_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const rawFileName = `img_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const folderFilePath = `products/${rawFileName}`;
 
-        // Upload directly to bucket root with upsert: true
-        const { data, error } = await supabase.storage
+        // First attempt: upload to the 'products' subfolder
+        let targetPath = folderFilePath;
+        let { data, error } = await supabase.storage
           .from('product-images')
-          .upload(fileName, file, {
+          .upload(folderFilePath, file, {
             cacheControl: '3600',
             upsert: true,
           });
 
+        // Fallback: upload directly to root if folder path fails
+        if (error) {
+          console.warn('Subfolder upload failed, trying root upload:', error.message);
+          targetPath = rawFileName;
+          const rootResult = await supabase.storage
+            .from('product-images')
+            .upload(rawFileName, file, {
+              cacheControl: '3600',
+              upsert: true,
+            });
+          data = rootResult.data;
+          error = rootResult.error;
+        }
+
         if (error) {
           console.error('Supabase Upload Error:', error);
-          alert(`Supabase Storage Error: ${error.message}\n\nPlease click 'Edit bucket' in Supabase and ensure 'Public bucket' is switched ON.`);
+          alert(`Supabase Storage Error: ${error.message}\n\nPlease ensure your bucket policy allows INSERT or is set to Public.`);
           const objectUrl = URL.createObjectURL(file);
           newImageUrls.push(objectUrl);
         } else {
           const { data: publicUrlData } = supabase.storage
             .from('product-images')
-            .getPublicUrl(fileName);
-          
+            .getPublicUrl(targetPath);
+
           if (publicUrlData && publicUrlData.publicUrl) {
             newImageUrls.push(publicUrlData.publicUrl);
           }
