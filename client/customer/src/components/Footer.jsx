@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 text-amber-500 mb-4">
               <Sparkles className="w-5 h-5" />
               <span className="font-serif tracking-widest uppercase font-bold text-white text-lg">
-                AURORA
+                COSMETIFY
               </span>
             </div>
             <p className="text-stone-400 text-sm leading-relaxed mb-4">
@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} Aurora Botanicals & Luxe. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Cosmetify Beauty. All rights reserved.</p>
           <p className="flex items-center space-x-1 mt-4 md:mt-0">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />

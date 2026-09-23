@@ -71,7 +71,7 @@ export default function CampaignVideoSection() {
         <div className="lg:col-span-5 p-8 sm:p-10 space-y-6 flex flex-col justify-center">
           <div className="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-500/40 rounded-full px-4 py-1 text-amber-300 text-[10px] font-bold uppercase tracking-widest backdrop-blur-md w-fit">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>SUGAR x Aurora Beauty Campaign</span>
+            <span>SUGAR x Cosmetify Campaign</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl font-normal leading-tight text-white">

@@ -8,7 +8,7 @@ import heroIndian3 from '../assets/hero_indian_3.jpg';
 const SLIDES = [
   {
     id: 1,
-    tag: 'Curated By Aurora',
+    tag: 'Curated By Cosmetify',
     title: 'Your Curated Beauty',
     highlightTitle: 'Destination.',
     image: heroIndian1,

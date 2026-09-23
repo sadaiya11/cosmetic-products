@@ -27,7 +27,7 @@ export default function AdminSidebar() {
           </div>
           <div>
             <h1 className="font-serif text-lg font-bold tracking-wider text-white">
-              AURORA
+              COSMETIFY
             </h1>
             <span className="text-[10px] text-amber-500 uppercase tracking-widest font-semibold block">
               Admin Portal

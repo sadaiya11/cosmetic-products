@@ -19,11 +19,16 @@ import {
   CheckCircle2,
   Heart,
   Share2,
+  Check,
+  ShieldCheck,
+  ThumbsUp,
+  MessageSquare,
+  Sparkles,
 } from 'lucide-react';
 import { API_BASE_URL } from '../config/api';
 
 export default function ProductDetail() {
-  const { id } = useParams();
+  const { id, slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -37,33 +42,73 @@ export default function ProductDetail() {
   const [pincode, setPincode] = useState('');
   const [deliveryStatus, setDeliveryStatus] = useState(null);
 
+  // Customer Reviews & Ratings State
+  const [reviewsList, setReviewsList] = useState([]);
+  const [newCustomerName, setNewCustomerName] = useState('');
+  const [newRating, setNewRating] = useState(5);
+  const [newReviewTitle, setNewReviewTitle] = useState('');
+  const [newReviewBody, setNewReviewBody] = useState('');
+  const [newIsVerified, setNewIsVerified] = useState(true);
+  const [reviewSuccessMsg, setReviewSuccessMsg] = useState('');
+  const [filterStar, setFilterStar] = useState('all');
+
+  const targetLookup = id || slug;
+
   useEffect(() => {
-    fetch(`${API_BASE_URL}/products/${id}`)
+    fetch(`${API_BASE_URL}/products/${targetLookup}`)
       .then((res) => res.json())
       .then((data) => {
         let currentProd = null;
         if (data && data.id) {
           currentProd = data;
         } else {
-          const found = MOCK_PRODUCTS.find((p) => p.id === id);
+          const found = MOCK_PRODUCTS.find((p) => p.id === targetLookup || p.slug === targetLookup);
           currentProd = found || MOCK_PRODUCTS[0];
         }
         setProduct(currentProd);
+        setReviewsList(currentProd.reviews || []);
         const prodVariants = getProductVariants(currentProd);
         setVariants(prodVariants);
         setSelectedVariantIndex(0);
         setActiveImageIndex(0);
       })
       .catch(() => {
-        const found = MOCK_PRODUCTS.find((p) => p.id === id);
+        const found = MOCK_PRODUCTS.find((p) => p.id === targetLookup || p.slug === targetLookup);
         const fallbackProd = found || MOCK_PRODUCTS[0];
         setProduct(fallbackProd);
+        setReviewsList(fallbackProd.reviews || []);
         const prodVariants = getProductVariants(fallbackProd);
         setVariants(prodVariants);
         setSelectedVariantIndex(0);
         setActiveImageIndex(0);
       });
-  }, [id]);
+  }, [targetLookup]);
+
+  // Dynamic SEO Meta Management Effect
+  useEffect(() => {
+    if (product) {
+      // 1. SEO Title
+      document.title = product.seoTitle || `${product.title} - Buy Online at Cosmetify`;
+
+      // 2. SEO Description Meta Tag
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = 'description';
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.content = product.seoDescription || product.description || '';
+
+      // 3. SEO Keywords Meta Tag
+      let metaKw = document.querySelector('meta[name="keywords"]');
+      if (!metaKw) {
+        metaKw = document.createElement('meta');
+        metaKw.name = 'keywords';
+        document.head.appendChild(metaKw);
+      }
+      metaKw.content = product.seoKeywords || 'cosmetics, skincare, beauty, cosmetify';
+    }
+  }, [product]);
 
   if (!product) return null;
 
@@ -375,6 +420,298 @@ export default function ProductDetail() {
 
         </div>
       </div>
+
+      {/* -------------------------------------------------------------------------- */}
+      {/* SECTION 10: REVIEWS & RATINGS (TRANSACTIONAL & LIVE CALCULATED SYSTEM) */}
+      {/* -------------------------------------------------------------------------- */}
+      <div className="pt-10 border-t border-stone-200 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center space-x-2 text-pink-600 text-xs font-bold uppercase tracking-widest mb-1">
+              <MessageSquare className="w-4 h-4" />
+              <span>Customer Feedback & Ratings</span>
+            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl text-stone-900 font-bold">
+              Ratings & Reviews
+            </h2>
+          </div>
+          <div className="flex items-center space-x-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3.5 py-1.5 rounded-full text-xs font-bold">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>100% Verified Customer Reviews</span>
+          </div>
+        </div>
+
+        {/* Ratings Breakdown & Overall Score Card */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 bg-stone-50 p-6 sm:p-8 rounded-3xl border border-stone-200/80 items-center">
+          
+          {/* Overall Live Calculated Rating */}
+          <div className="md:col-span-4 text-center md:border-r border-stone-200/80 md:pr-8 space-y-2">
+            <div className="text-5xl sm:text-6xl font-black text-stone-950 tracking-tight">
+              {liveAvgRating}
+            </div>
+            <div className="flex items-center justify-center space-x-1 text-amber-400">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className={`w-5 h-5 ${
+                    star <= Math.round(parseFloat(liveAvgRating))
+                      ? 'fill-amber-400 text-amber-400'
+                      : 'text-stone-300'
+                  }`}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-stone-500 font-medium">
+              Based on <span className="font-bold text-stone-900">{totalReviewsCount}</span> verified ratings
+            </p>
+            <p className="text-[11px] text-stone-400 italic">
+              (Calculated transactionally from user reviews)
+            </p>
+          </div>
+
+          {/* Star Rating Percentage Breakdown Bars */}
+          <div className="md:col-span-8 space-y-2.5">
+            {starBreakdown.map(({ starNum, count, percent }) => (
+              <div key={starNum} className="flex items-center space-x-3 text-xs">
+                <span className="w-12 font-bold text-stone-700 flex items-center space-x-1 shrink-0">
+                  <span>{starNum}</span>
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 inline" />
+                </span>
+                <div className="flex-1 bg-stone-200 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-amber-400 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${percent}%` }}
+                  />
+                </div>
+                <span className="w-16 text-right text-stone-500 font-medium shrink-0">
+                  {percent}% ({count})
+                </span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* Customer Review Form & Reviews Feed Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Write a Review Interactive Form */}
+          <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-stone-200 shadow-sm space-y-4">
+            <div className="flex items-center space-x-2 border-b border-stone-100 pb-3">
+              <Sparkles className="w-4 h-4 text-pink-600" />
+              <h3 className="font-bold text-stone-900 text-sm uppercase tracking-wider">
+                Write a Customer Review
+              </h3>
+            </div>
+
+            {reviewSuccessMsg && (
+              <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold p-3 rounded-xl flex items-center space-x-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{reviewSuccessMsg}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleAddCustomerReview} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                  Select Rating (1 to 5 Stars)
+                </label>
+                <div className="flex items-center space-x-2 bg-stone-50 p-3 rounded-xl border border-stone-200">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setNewRating(s)}
+                      className="p-1 hover:scale-125 transition-transform"
+                    >
+                      <Star
+                        className={`w-6 h-6 ${
+                          s <= newRating ? 'fill-amber-400 text-amber-400' : 'text-stone-300'
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="text-xs font-bold text-stone-700 ml-2">
+                    {newRating} / 5 Stars
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
+                  Customer Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Radhika Varma"
+                  value={newCustomerName}
+                  onChange={(e) => setNewCustomerName(e.target.value)}
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:border-pink-600 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
+                  Headline / Summary
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Absolutely loved the texture!"
+                  value={newReviewTitle}
+                  onChange={(e) => setNewReviewTitle(e.target.value)}
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:border-pink-600 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
+                  Detailed Review *
+                </label>
+                <textarea
+                  rows="3"
+                  required
+                  placeholder="Share your honest thoughts about the product performance..."
+                  value={newReviewBody}
+                  onChange={(e) => setNewReviewBody(e.target.value)}
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:border-pink-600 font-medium"
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <label className="flex items-center space-x-2 text-stone-700 font-medium cursor-pointer text-xs">
+                  <input
+                    type="checkbox"
+                    checked={newIsVerified}
+                    onChange={(e) => setNewIsVerified(e.target.checked)}
+                    className="rounded border-stone-300 text-pink-600 focus:ring-pink-500"
+                  />
+                  <span className="flex items-center space-x-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Verified Purchase</span>
+                  </span>
+                </label>
+
+                <button
+                  type="submit"
+                  className="bg-stone-900 hover:bg-pink-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-md"
+                >
+                  Submit Review
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Customer Reviews Feed */}
+          <div className="lg:col-span-7 space-y-4">
+            
+            {/* Filter Tabs */}
+            <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+              <button
+                onClick={() => setFilterStar('all')}
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                  filterStar === 'all'
+                    ? 'bg-pink-600 text-white border-pink-600 shadow-sm'
+                    : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+                }`}
+              >
+                All Reviews ({reviewsList.length})
+              </button>
+              <button
+                onClick={() => setFilterStar('5')}
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                  filterStar === '5'
+                    ? 'bg-pink-600 text-white border-pink-600 shadow-sm'
+                    : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+                }`}
+              >
+                5 Stars ⭐
+              </button>
+              <button
+                onClick={() => setFilterStar('verified')}
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                  filterStar === 'verified'
+                    ? 'bg-pink-600 text-white border-pink-600 shadow-sm'
+                    : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+                }`}
+              >
+                Verified Buyers Only
+              </button>
+            </div>
+
+            {/* List of Customer Reviews */}
+            {filteredReviews.length > 0 ? (
+              <div className="space-y-4">
+                {filteredReviews.map((rev) => (
+                  <div
+                    key={rev.id}
+                    className="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm space-y-2.5 transition-all hover:border-pink-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2.5">
+                        <div className="w-8 h-8 rounded-full bg-pink-100 text-pink-700 font-extrabold text-xs flex items-center justify-center uppercase">
+                          {rev.customerName.charAt(0)}
+                        </div>
+                        <div>
+                          <span className="font-bold text-stone-900 text-xs block leading-none">
+                            {rev.customerName}
+                          </span>
+                          <span className="text-[10px] text-stone-400 font-medium">
+                            {rev.createdAt}
+                          </span>
+                        </div>
+                      </div>
+
+                      {rev.isVerifiedPurchase && (
+                        <span className="bg-emerald-50 text-emerald-700 font-extrabold px-2.5 py-1 rounded-full text-[10px] border border-emerald-200 flex items-center space-x-1">
+                          <Check className="w-3 h-3 text-emerald-600" />
+                          <span>Verified Buyer</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-0.5 text-amber-400">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            className={`w-3.5 h-3.5 ${
+                              s <= rev.rating ? 'fill-amber-400 text-amber-400' : 'text-stone-300'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      {rev.reviewTitle && (
+                        <span className="text-xs font-bold text-stone-900">{rev.reviewTitle}</span>
+                      )}
+                    </div>
+
+                    <p className="text-xs text-stone-600 leading-relaxed font-normal">
+                      {rev.reviewBody}
+                    </p>
+
+                    <div className="pt-2 flex items-center justify-between text-[11px] text-stone-400 border-t border-stone-100">
+                      <button className="flex items-center space-x-1 hover:text-stone-700 transition-colors">
+                        <ThumbsUp className="w-3.5 h-3.5" />
+                        <span>Helpful (12)</span>
+                      </button>
+                      <span className="text-stone-300">Cosmetify Community</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white p-8 rounded-2xl border border-dashed border-stone-300 text-center space-y-2">
+                <MessageSquare className="w-8 h-8 text-stone-300 mx-auto" />
+                <p className="text-xs font-bold text-stone-600">No reviews found for this filter</p>
+                <p className="text-[11px] text-stone-400">Be the first customer to leave a review!</p>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </div>
+
     </div>
   );
 }

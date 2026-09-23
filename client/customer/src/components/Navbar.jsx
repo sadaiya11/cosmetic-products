@@ -24,10 +24,10 @@ export default function Navbar() {
             </div>
             <div>
               <span className="text-xl font-serif tracking-widest uppercase font-bold text-stone-900 block">
-                AURORA
+                COSMETIFY
               </span>
               <span className="text-[10px] tracking-widest text-amber-700 uppercase block font-medium">
-                Botanicals & Luxe
+                Beauty & Cosmetics
               </span>
             </div>
           </Link>

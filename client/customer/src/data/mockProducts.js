@@ -14,12 +14,53 @@ export const MOCK_PRODUCTS = [
     discountPercent: 27,
     stock: 50,
     images: [cetaphil59_1, cetaphil59_2, cetaphil59_3, cetaphil59_4],
-    rating: 4.5,
+    rating: 4.8,
     numReviews: 433484,
     volume: '59ml',
     isFeatured: true,
     category: { name: 'Cleanser', slug: 'cleanser' },
     ingredients: 'Water, Cetyl Alcohol, Propylene Glycol, Sodium Lauryl Sulfate, Stearyl Alcohol, Niacinamide (Vitamin B3), Panthenol (Vitamin B5), Glycerin.',
+    seoTitle: 'Cetaphil Gentle Skin Cleanser - Buy Online at Cosmetify India',
+    seoDescription: 'Shop Cetaphil Gentle Skin Cleanser 59ml at best prices on Cosmetify. Dermatologist recommended hydrating face wash for dry and sensitive skin.',
+    seoKeywords: 'cetaphil gentle cleanser, cetaphil face wash, sensitive skin cleanser, hydrating cleanser',
+    reviews: [
+      {
+        id: 'rev-c1',
+        customerName: 'Ananya Sharma',
+        rating: 5,
+        reviewTitle: 'Best cleanser for sensitive skin!',
+        reviewBody: 'Extremely gentle and hydrating. Does not strip natural moisture from the face even in harsh winters. Highly recommended by my dermatologist!',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-20',
+      },
+      {
+        id: 'rev-c2',
+        customerName: 'Priya Patel',
+        rating: 5,
+        reviewTitle: 'Dermatologist approved & super mild',
+        reviewBody: 'I have dry skin and this product has changed my morning routine. Soft, soap-free formula.',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-18',
+      },
+      {
+        id: 'rev-c3',
+        customerName: 'Rohan Mehta',
+        rating: 4,
+        reviewTitle: 'Very soothing daily wash',
+        reviewBody: 'Feels like a hydrating lotion while cleansing. Removes light dirt and sunscreen smoothly.',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-14',
+      },
+      {
+        id: 'rev-c4',
+        customerName: 'Kavya Nair',
+        rating: 5,
+        reviewTitle: 'Must buy for dry & reactive skin',
+        reviewBody: 'Repaired my damaged skin barrier in 2 weeks. Worth every penny!',
+        isVerifiedPurchase: false,
+        createdAt: '2026-09-08',
+      },
+    ],
     variants: [
       {
         id: 'v-cet-59ml',
@@ -99,6 +140,20 @@ export const MOCK_PRODUCTS = [
     isFeatured: true,
     category: { name: 'Skincare', slug: 'skincare' },
     ingredients: 'Organic Rosa Canina (Rosehip) Seed Oil, Squalane, Bakuchiol, Tocopherol (Vitamin E), Rosa Damascena Flower Oil.',
+    seoTitle: 'Rosehip Botanical Youth Elixir Face Oil - Cosmetify',
+    seoDescription: 'Discover Rosehip Youth Elixir infused with Bakuchiol & Squalane for anti-aging skin renewal.',
+    seoKeywords: 'rosehip oil, youth elixir, bakuchiol face oil, anti aging oil',
+    reviews: [
+      {
+        id: 'rev-r1',
+        customerName: 'Meera Deshmukh',
+        rating: 5,
+        reviewTitle: 'Liquid gold for radiant glowing skin!',
+        reviewBody: 'Gives an unbelievable natural glow by morning without feeling greasy.',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-19',
+      },
+    ],
   },
   {
     id: 'prod-2',
@@ -120,6 +175,20 @@ export const MOCK_PRODUCTS = [
     isFeatured: true,
     category: { name: 'Skincare', slug: 'skincare' },
     ingredients: 'Tremella Fuciformis (Snow Mushroom) Extract, Sodium Hyaluronate, Niacinamide, Glycerin, Aloe Barbadensis Leaf Juice.',
+    seoTitle: 'Cellular Hydration Nectar Serum - Cosmetify',
+    seoDescription: 'Triple-weight Hyaluronic Acid serum for intense skin hydration.',
+    seoKeywords: 'hyaluronic acid serum, hydration nectar, plump skin serum',
+    reviews: [
+      {
+        id: 'rev-h1',
+        customerName: 'Vikram Joshi',
+        rating: 5,
+        reviewTitle: 'Ultra hydrating serum',
+        reviewBody: 'Absorbs instantly. My skin feels plumped and hydrated all day long.',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-17',
+      },
+    ],
   },
   {
     id: 'prod-3',
@@ -141,6 +210,10 @@ export const MOCK_PRODUCTS = [
     isFeatured: false,
     category: { name: 'Cleanser', slug: 'cleanser' },
     ingredients: 'Camellia Japonica Seed Oil, Caprylic/Capric Triglyceride, Glycerin, Aqua, Sucrose Laurate.',
+    seoTitle: 'Velvet Camellia Cream Cleanser - Cosmetify',
+    seoDescription: 'Nourishing oil-to-milk balm cleanser for waterproof makeup removal.',
+    seoKeywords: 'camellia cleanser, cleansing balm, oil cleanser',
+    reviews: [],
   },
   {
     id: 'prod-4',
@@ -162,6 +235,20 @@ export const MOCK_PRODUCTS = [
     isFeatured: true,
     category: { name: 'Fragrance', slug: 'fragrance' },
     ingredients: 'Organic Sugarcane Alcohol, Essential Oil Perfume Blend, Santalum Album (Sandalwood), Amber Extract.',
+    seoTitle: 'Amber & Sandalwood Eau De Parfum - Cosmetify',
+    seoDescription: 'Artisanal luxury eau de parfum with natural Mysore sandalwood and golden amber.',
+    seoKeywords: 'sandalwood perfume, amber fragrance, luxury edp india',
+    reviews: [
+      {
+        id: 'rev-p1',
+        customerName: 'Diya Sen',
+        rating: 5,
+        reviewTitle: 'Long lasting regal fragrance!',
+        reviewBody: 'Stays on for 10+ hours. Smells warm, luxurious, and divine.',
+        isVerifiedPurchase: true,
+        createdAt: '2026-09-12',
+      },
+    ],
   },
 ];
 
@@ -176,7 +263,6 @@ export function getPriceDetails(product) {
   } else if (!mrp && discountPercent > 0) {
     mrp = Math.round(price / (1 - discountPercent / 100));
   } else {
-    // Generate varying realistic discounts (10%, 15%, 20%, 25%, 30%) based on product id
     const str = String(product.id || product._id || product.title || '1');
     const charSum = str.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const options = [10, 15, 20, 25, 30];
@@ -194,7 +280,6 @@ export function getPriceDetails(product) {
 export function getProductVariants(product) {
   if (!product) return [];
 
-  // If explicit variants exist in product object:
   if (product.variants && Array.isArray(product.variants) && product.variants.length > 0) {
     return product.variants;
   }
@@ -249,7 +334,6 @@ export function getProductVariants(product) {
     ];
   }
 
-  // Skincare / Cleanser default variants matching Nykaa's 59ml, 118ml, 236ml, 473ml, 1Ltr format
   return [
     {
       id: 'v-59ml',
@@ -293,3 +377,4 @@ export function getProductVariants(product) {
     },
   ];
 }
+
